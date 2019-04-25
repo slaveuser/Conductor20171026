@@ -1,0 +1,50 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    defaultConfig {
+        applicationId "com.bluelinelabs.conductor.demo"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0.0"
+        vectorDrawables.useSupportLibrary true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+dependencies {
+    compile rootProject.ext.supportV4
+    compile rootProject.ext.supportDesign
+
+    annotationProcessor rootProject.ext.butterknifeCompiler
+    compile rootProject.ext.butterknife
+    compile rootProject.ext.picasso
+
+    compile project(':conductor-modules:support')
+    compile project(':conductor-modules:rxlifecycle')
+    compile project(':conductor-modules:rxlifecycle2')
+    compile project(':conductor-modules:autodispose')
+    compile project(':conductor-modules:arch-components-lifecycle')
+
+    debugCompile rootProject.ext.leakCanary
+    releaseCompile rootProject.ext.leakCanaryNoOp
+    testCompile rootProject.ext.leakCanaryNoOp
+}
